@@ -1,22 +1,19 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menu - La Dolce</title>
-    <link href="https://cdn.jsdelivr.net/gh/nicklaw-lab/tajawal@master/fonts/tajawal-regular.woff2" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;800&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>La Dolce — Menu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
         :root {
-            --gold: #D4A853;
-            --gold-light: #E8C97A;
-            --dark: #0D0D0D;
-            --dark-card: #1A1A1A;
-            --dark-lighter: #2A2A2A;
-            --cream: #FFF8E7;
-            --text-light: #F5F0E8;
-            --text-muted: #9A9A9A;
-            --accent: #C9956B;
+            --cream: #FFF5DC;
+            --olive: #404125;
+            --maroon: #550000;
+            --black: #1A1A1A;
+            --olive-light: rgba(64,65,37,0.08);
+            --olive-border: rgba(64,65,37,0.15);
+            --cream-dark: #F5EDD8;
         }
 
         * {
@@ -26,19 +23,17 @@
         }
 
         body {
-            font-family: 'Lato', 'Tajawal', sans-serif;
-            background-color: var(--dark);
-            color: var(--text-light);
+            font-family: 'Cormorant Garamond', 'Georgia', serif;
+            background-color: var(--cream);
+            color: var(--black);
             overflow-x: hidden;
-            scroll-behavior: smooth;
         }
 
-        /* Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-track { background: var(--dark); }
-        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--cream); }
+        ::-webkit-scrollbar-thumb { background: var(--olive); border-radius: 4px; }
 
-        /* Hero Section */
+        /* ===== HERO ===== */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -46,322 +41,105 @@
             align-items: center;
             justify-content: center;
             text-align: center;
+            background: var(--olive);
+            color: var(--cream);
             position: relative;
-            overflow: hidden;
+            padding: 2rem;
         }
 
         .hero::before {
             content: '';
             position: absolute;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(ellipse at center, rgba(212,168,83,0.08) 0%, transparent 70%);
+            top: 30px; left: 30px; right: 30px; bottom: 30px;
+            border: 1px solid rgba(255,245,220,0.2);
             pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 40px; left: 40px; right: 40px; bottom: 40px;
+            border: 1px solid rgba(255,245,220,0.08);
+            pointer-events: none;
+        }
+
+        .hero-ornament {
+            width: 60px;
+            height: 1px;
+            background: var(--cream);
+            opacity: 0.5;
+            margin-bottom: 2rem;
+            animation: fadeIn 1s ease-out;
         }
 
         .hero-logo {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(3rem, 8vw, 6rem);
+            font-size: clamp(3.5rem, 10vw, 7rem);
             font-weight: 800;
-            color: var(--gold);
-            letter-spacing: 6px;
+            letter-spacing: 8px;
             text-transform: uppercase;
-            margin-bottom: 1rem;
-            animation: fadeInDown 1s ease-out;
+            color: var(--cream);
+            animation: fadeInDown 1.2s ease-out;
+            line-height: 1;
+            margin-bottom: 0.5rem;
         }
 
         .hero-subtitle {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(1rem, 2.5vw, 1.5rem);
-            color: var(--text-muted);
-            letter-spacing: 4px;
-            text-transform: uppercase;
-            margin-bottom: 2rem;
-            animation: fadeInUp 1s ease-out 0.3s both;
-        }
-
-        .hero-divider {
-            width: 120px;
-            height: 2px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            margin: 1rem auto;
-            animation: fadeIn 1s ease-out 0.6s both;
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            animation: bounce 2s infinite;
-            cursor: pointer;
-        }
-
-        .scroll-indicator svg {
-            width: 30px;
-            height: 30px;
-            stroke: var(--gold);
-        }
-
-        /* Navigation */
-        .nav-sticky {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(13, 13, 13, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(212,168,83,0.15);
-            padding: 0;
-            transition: all 0.3s ease;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            overflow-x: auto;
-            white-space: nowrap;
-            padding: 0.8rem 1rem;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-        }
-
-        .nav-container::-webkit-scrollbar { display: none; }
-
-        .nav-link {
-            display: inline-block;
-            padding: 0.5rem 1.2rem;
-            margin: 0 0.3rem;
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.85rem;
+            font-size: clamp(1.1rem, 2.5vw, 1.6rem);
             font-weight: 400;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            border: 1px solid transparent;
-            border-radius: 25px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .nav-link:hover, .nav-link.active {
-            color: var(--gold);
-            border-color: rgba(212,168,83,0.3);
-            background: rgba(212,168,83,0.08);
-        }
-
-        /* Main Content */
-        .menu-container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 2rem 1.5rem 4rem;
-        }
-
-        /* Section */
-        .menu-section {
-            margin-bottom: 4rem;
-            animation: fadeIn 0.6s ease-out both;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 2.5rem;
-            position: relative;
-        }
-
-        .section-title {
-            font-family: 'Playfair Display', serif;
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-            font-weight: 700;
-            color: var(--gold);
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-        }
-
-        .section-subtitle {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-        }
-
-        .section-divider {
-            width: 80px;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            margin: 1rem auto 0;
-        }
-
-        /* Menu Items */
-        .menu-items {
-            display: grid;
-            gap: 1.2rem;
-        }
-
-        .menu-item {
-            background: var(--dark-card);
-            border: 1px solid rgba(212,168,83,0.08);
-            border-radius: 12px;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .menu-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 3px;
-            height: 0;
-            background: var(--gold);
-            transition: height 0.3s ease;
-        }
-
-        .menu-item:hover {
-            border-color: rgba(212,168,83,0.2);
-            transform: translateX(-4px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-        }
-
-        .menu-item:hover::before {
-            height: 100%;
-        }
-
-        .item-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 0.5rem;
-        }
-
-        .item-name {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.15rem;
-            font-weight: 600;
-            color: var(--text-light);
-            flex: 1;
-        }
-
-        .item-price {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--gold);
-            white-space: nowrap;
-            margin-right: 1rem;
-            direction: ltr;
-        }
-
-        .item-desc {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-            font-weight: 300;
-        }
-
-        .item-options {
-            font-size: 0.8rem;
-            color: var(--accent);
-            margin-top: 0.4rem;
             font-style: italic;
-        }
-
-        /* Sub-category items (like Coffee items) */
-        .sub-item {
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid rgba(212,168,83,0.06);
-            padding: 0.8rem 0;
-            border-radius: 0;
-        }
-
-        .sub-item::before {
-            display: none;
-        }
-
-        .sub-item:hover {
-            transform: none;
-            box-shadow: none;
-            border-color: rgba(212,168,83,0.12);
-            background: rgba(212,168,83,0.03);
-            border-radius: 8px;
-            padding: 0.8rem 1rem;
-            margin: 0 -1rem;
-        }
-
-        .sub-item .item-header {
-            margin-bottom: 0;
-        }
-
-        .sub-item .item-name {
-            font-family: 'Lato', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 400;
-        }
-
-        .sub-item .item-price {
-            font-family: 'Lato', sans-serif;
-            font-size: 0.95rem;
-            font-weight: 700;
-        }
-
-        .sub-item .item-desc {
-            font-size: 0.8rem;
-        }
-
-        /* Subcategory Title */
-        .subcategory-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            font-weight: 600;
-            color: var(--gold-light);
-            margin: 2rem 0 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid rgba(212,168,83,0.15);
-        }
-
-        /* Footer */
-        .footer {
-            text-align: center;
-            padding: 3rem 1.5rem;
-            border-top: 1px solid rgba(212,168,83,0.1);
-            background: var(--dark-card);
-        }
-
-        .footer p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            letter-spacing: 0.5px;
-        }
-
-        .footer a {
-            color: var(--gold);
-            text-decoration: none;
-            font-weight: 700;
-            transition: all 0.3s ease;
-            border-bottom: 1px solid transparent;
-        }
-
-        .footer a:hover {
-            color: var(--gold-light);
-            border-bottom-color: var(--gold-light);
-        }
-
-        .footer-logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            color: var(--gold);
-            letter-spacing: 3px;
+            color: var(--cream);
+            opacity: 0.85;
+            letter-spacing: 2px;
+            animation: fadeInUp 1.2s ease-out 0.3s both;
             margin-bottom: 1rem;
         }
 
-        /* Animations */
+        .hero-tagline {
+            font-family: 'Montserrat', sans-serif;
+            font-size: clamp(0.7rem, 1.2vw, 0.85rem);
+            font-weight: 300;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            color: var(--cream);
+            opacity: 0.6;
+            animation: fadeInUp 1.2s ease-out 0.6s both;
+        }
+
+        .hero-divider {
+            width: 50px;
+            height: 50px;
+            border: 1px solid rgba(255,245,220,0.3);
+            transform: rotate(45deg);
+            margin-top: 3rem;
+            animation: fadeIn 1.2s ease-out 0.9s both;
+        }
+
+        .scroll-text {
+            position: absolute;
+            bottom: 50px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--cream);
+            opacity: 0.4;
+            animation: pulseDown 2s infinite;
+        }
+
+        @keyframes pulseDown {
+            0%, 100% { transform: translateY(0); opacity: 0.4; }
+            50% { transform: translateY(8px); opacity: 0.7; }
+        }
+
         @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
+            from { opacity: 0; transform: translateY(-40px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
+            from { opacity: 0; transform: translateY(40px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
@@ -370,625 +148,901 @@
             to { opacity: 1; }
         }
 
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
+        /* ===== NAVIGATION ===== */
+        .nav-sticky {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: var(--olive);
+            border-bottom: 2px solid var(--cream);
+            padding: 0;
         }
 
-        /* Floating particles */
-        .particles {
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 1rem 1.5rem;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            display: flex;
+            gap: 0.5rem;
         }
 
-        .particle {
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: var(--gold);
-            border-radius: 50%;
+        .nav-container::-webkit-scrollbar { display: none; }
+
+        .nav-link {
+            display: inline-block;
+            padding: 0.4rem 1.1rem;
+            color: var(--cream);
+            opacity: 0.5;
+            text-decoration: none;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border: 1px solid transparent;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            opacity: 1;
+            border-color: rgba(255,245,220,0.4);
+            background: rgba(255,245,220,0.08);
+        }
+
+        /* ===== MENU CONTENT ===== */
+        .menu-wrapper {
+            background: var(--cream);
+            position: relative;
+        }
+
+        .menu-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem 2rem 4rem;
+        }
+
+        /* Section */
+        .menu-section {
+            margin-bottom: 3.5rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--olive-border);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            font-weight: 600;
+            color: var(--olive);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .section-ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 0.8rem;
+        }
+
+        .ornament-line {
+            width: 40px;
+            height: 1px;
+            background: var(--olive);
             opacity: 0.3;
-            animation: float linear infinite;
         }
 
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.3; }
-            90% { opacity: 0.3; }
-            100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+        .ornament-diamond {
+            width: 6px;
+            height: 6px;
+            background: var(--olive);
+            opacity: 0.4;
+            transform: rotate(45deg);
         }
 
-        /* Responsive */
+        /* ===== MENU ITEMS - Professional Layout ===== */
+        .menu-items {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            padding: 0.9rem 0;
+            border-bottom: 1px solid rgba(64,65,37,0.06);
+            transition: background 0.3s ease;
+            position: relative;
+        }
+
+        .menu-item:hover {
+            background: var(--olive-light);
+            margin: 0 -1.5rem;
+            padding: 0.9rem 1.5rem;
+            border-radius: 4px;
+        }
+
+        .menu-item:last-child {
+            border-bottom: none;
+        }
+
+        /* Name on LEFT, Price on RIGHT */
+        .item-content {
+            flex: 1;
+            padding-left: 1.5rem;
+            text-align: left;
+            order: 1;
+        }
+
+        .item-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--black);
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+        }
+
+        .item-desc {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.95rem;
+            font-weight: 400;
+            color: var(--black);
+            opacity: 0.65;
+            line-height: 1.5;
+            font-style: italic;
+        }
+
+        .item-options {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 400;
+            color: var(--black);
+            opacity: 0.5;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-top: 0.3rem;
+        }
+
+        .item-connector {
+            flex: 1;
+            border-bottom: 1px dotted rgba(64,65,37,0.2);
+            margin: 0 0.8rem;
+            align-self: flex-end;
+            margin-bottom: 5px;
+            min-width: 30px;
+            order: 2;
+        }
+
+        .item-price-wrap {
+            flex-shrink: 0;
+            width: 120px;
+            text-align: right;
+            order: 3;
+        }
+
+        .item-price {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.05rem;
+            font-weight: 600;
+            color: var(--maroon);
+            letter-spacing: 0.5px;
+        }
+
+        /* Sub-category */
+        .subcategory-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            font-style: italic;
+            color: var(--olive);
+            margin: 2rem 0 0.8rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--olive-border);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .subcategory-icon {
+            font-style: normal;
+            font-size: 1.1rem;
+        }
+
+        /* Featured item */
+        .menu-item.featured {
+            background: rgba(64,65,37,0.04);
+            margin: 0.5rem -1rem;
+            padding: 1.2rem 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--olive-border);
+        }
+
+        .featured-badge {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.55rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--maroon);
+            background: rgba(85,0,0,0.06);
+            padding: 0.2rem 0.6rem;
+            border-radius: 2px;
+            display: inline-block;
+            margin-bottom: 0.4rem;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--olive);
+            color: var(--cream);
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 15px; left: 15px; right: 15px; bottom: 15px;
+            border: 1px solid rgba(255,245,220,0.1);
+            pointer-events: none;
+        }
+
+        .footer-ornament {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-ornament .ornament-line {
+            background: var(--cream);
+        }
+
+        .footer-ornament .ornament-diamond {
+            background: var(--cream);
+        }
+
+        .footer-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--cream);
+            margin-bottom: 1rem;
+        }
+
+        .footer p {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            color: var(--cream);
+            opacity: 0.5;
+            line-height: 1.8;
+        }
+
+        .footer a {
+            color: var(--cream);
+            opacity: 0.9;
+            text-decoration: none;
+            font-weight: 600;
+            border-bottom: 1px solid rgba(255,245,220,0.3);
+            transition: all 0.3s ease;
+            padding-bottom: 1px;
+        }
+
+        .footer a:hover {
+            opacity: 1;
+            border-bottom-color: var(--cream);
+        }
+
+        /* ===== RESPONSIVE ===== */
         @media (max-width: 600px) {
             .menu-container {
-                padding: 1rem 1rem 3rem;
+                padding: 2rem 1.2rem 3rem;
             }
-            .menu-item {
-                padding: 1.2rem;
+
+            .menu-item:hover {
+                margin: 0 -1.2rem;
+                padding: 0.9rem 1.2rem;
             }
-            .item-name {
-                font-size: 1rem;
+
+            .menu-item.featured {
+                margin: 0.5rem -0.8rem;
+                padding: 1rem 0.8rem;
             }
+
+            .item-price-wrap {
+                width: 95px;
+            }
+
             .item-price {
-                font-size: 1rem;
+                font-size: 0.95rem;
             }
+
+            .item-name {
+                font-size: 1.05rem;
+            }
+
+            .item-content {
+                padding-left: 1rem;
+            }
+
+            .hero::before, .hero::after {
+                top: 15px; left: 15px; right: 15px; bottom: 15px;
+            }
+
             .nav-link {
-                font-size: 0.75rem;
+                font-size: 0.6rem;
                 padding: 0.4rem 0.8rem;
+                letter-spacing: 1px;
             }
         }
 
-        /* Section visible animation */
-        .menu-section.visible {
-            animation: fadeInUp 0.6s ease-out both;
+        /* Print styles */
+        @media print {
+            .nav-sticky, .hero, .scroll-text { display: none; }
+            .menu-item:hover { background: none; margin: 0; padding: 0.9rem 0; }
+            body { background: white; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Particles -->
-    <div class="particles" id="particles"></div>
-
-    <!-- Hero -->
+    <!-- ===== HERO ===== -->
     <section class="hero">
-        <div class="hero-logo">La Dolce</div>
-        <div class="hero-subtitle">Café & Restaurant</div>
+        <div class="hero-ornament"></div>
+        <h1 class="hero-logo">La Dolce</h1>
+        <p class="hero-subtitle">Lifestyle Destination</p>
+        <p class="hero-tagline">Community &bull; Design &bull; Movement</p>
         <div class="hero-divider"></div>
-        <div class="scroll-indicator" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">
-            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
-        </div>
+        <span class="scroll-text">Scroll</span>
     </section>
 
-    <!-- Navigation -->
+    <!-- ===== NAVIGATION ===== -->
     <nav class="nav-sticky" id="navbar">
         <div class="nav-container">
             <a class="nav-link" data-target="breakfast">Breakfast</a>
             <a class="nav-link" data-target="dessert">Dessert</a>
-            <a class="nav-link" data-target="hot-drinks">Hot Drinks</a>
-            <a class="nav-link" data-target="cold-drinks">Cold Drinks</a>
+            <a class="nav-link" data-target="hotdrinks">Hot Drinks</a>
+            <a class="nav-link" data-target="colddrinks">Cold Drinks</a>
             <a class="nav-link" data-target="smoothies">Smoothies</a>
+            <a class="nav-link" data-target="juice">Fresh Juice</a>
             <a class="nav-link" data-target="milkshakes">Milkshakes</a>
             <a class="nav-link" data-target="cocktails">Cocktails</a>
-            <a class="nav-link" data-target="water-drinks">Water & Soft Drinks</a>
+            <a class="nav-link" data-target="water">Water &amp; Soft Drinks</a>
         </div>
     </nav>
 
-    <!-- Menu -->
-    <main class="menu-container" id="menu">
+    <!-- ===== MENU ===== -->
+    <main class="menu-wrapper">
+        <div class="menu-container">
 
-        <!-- All Day Breakfast -->
-        <section class="menu-section" id="breakfast">
-            <div class="section-header">
-                <h2 class="section-title">All Day Breakfast</h2>
-                <p class="section-subtitle">Start your day right</p>
-                <div class="section-divider"></div>
-            </div>
-            <div class="menu-items">
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Healthy Bites</span>
-                        <span class="item-price">50,000 SY</span>
+            <!-- ALL DAY BREAKFAST -->
+            <section class="menu-section" id="breakfast">
+                <div class="section-header">
+                    <h2 class="section-title">All Day Breakfast</h2>
+                    <div class="section-ornament">
+                        <span class="ornament-line"></span>
+                        <span class="ornament-diamond"></span>
+                        <span class="ornament-line"></span>
                     </div>
-                    <p class="item-desc">Omelets with Side (Avocado - Lettuce - Cucumber - Cherry Tomato - Olives), Slice of brown bread</p>
                 </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Right Bite</span>
-                        <span class="item-price">48,000 SY</span>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="item-content">
+                            <div class="item-name">Healthy Bites</div>
+                            <div class="item-desc">Omelets with Side (Avocado, Lettuce, Cucumber, Cherry Tomato, Olives), Slice of brown bread</div>
+                        </div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">50,000 SY</span></div>
                     </div>
-                    <p class="item-desc">2 Boiled Eggs with Side (Avocado - Lettuce - Cucumber - Cherry Tomato - Olives), Slice of brown bread</p>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Croissant</span>
-                        <span class="item-price">15,000 SY</span>
+                    <div class="menu-item">
+                        <div class="item-content">
+                            <div class="item-name">Right Bite</div>
+                            <div class="item-desc">2 Boiled Eggs with Side (Avocado, Lettuce, Cucumber, Cherry Tomato, Olives), Slice of brown bread</div>
+                        </div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">48,000 SY</span></div>
                     </div>
-                    <p class="item-options">Chocolate / Cheese / Zaatar / Cheese & Olive</p>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Light Snacks</span>
-                        <span class="item-price">17,000 SY</span>
+                    <div class="menu-item">
+                        <div class="item-content">
+                            <div class="item-name">Croissant</div>
+                            <div class="item-options">Chocolate / Cheese / Zaatar / Cheese &amp; Olive</div>
+                        </div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">15,000 SY</span></div>
                     </div>
-                    <p class="item-desc">Carrot & Cucumber Plate</p>
+                    <div class="menu-item">
+                        <div class="item-content">
+                            <div class="item-name">Light Snacks</div>
+                            <div class="item-desc">Carrot &amp; Cucumber Plate</div>
+                        </div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">17,000 SY</span></div>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Dessert -->
-        <section class="menu-section" id="dessert">
-            <div class="section-header">
-                <h2 class="section-title">Dessert</h2>
-                <p class="section-subtitle">Sweet indulgences</p>
-                <div class="section-divider"></div>
-            </div>
-            <div class="menu-items">
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Crepe</span>
-                        <span class="item-price">32,000 SY</span>
+            <!-- DESSERT -->
+            <section class="menu-section" id="dessert">
+                <div class="section-header">
+                    <h2 class="section-title">Dessert</h2>
+                    <div class="section-ornament">
+                        <span class="ornament-line"></span>
+                        <span class="ornament-diamond"></span>
+                        <span class="ornament-line"></span>
                     </div>
-                    <p class="item-options">Chocolate / Caramel</p>
                 </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Fettuccine</span>
-                        <span class="item-price">35,000 SY</span>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="item-content">
+                            <div class="item-name">Crepe</div>
+                            <div class="item-options">Chocolate / Caramel</div>
+                        </div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">32,000 SY</span></div>
                     </div>
-                    <p class="item-options">Dark / White / Nutella Chocolate</p>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Ice Cream</span>
-                        <span class="item-price">30,000 SY</span>
+                    <div class="menu-item">
+                        <div class="item-content">
+                            <div class="item-name">Fettuccine</div>
+                            <div class="item-options">Dark / White / Nutella Chocolate</div>
+                        </div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">35,000 SY</span></div>
                     </div>
-                    <p class="item-options">Chocolate / Strawberry / Vanilla / Peach / Mango</p>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Twix Salad</span>
-                        <span class="item-price">42,000 SY</span>
+                    <div class="menu-item">
+                        <div class="item-content">
+                            <div class="item-name">Ice Cream</div>
+                            <div class="item-options">Chocolate / Strawberry / Vanilla / Peach / Mango</div>
+                        </div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">30,000 SY</span></div>
                     </div>
-                    <p class="item-desc">Twix, Ice cream, Fruits, Cream, Cornflakes</p>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Kit Kat Salad</span>
-                        <span class="item-price">42,000 SY</span>
+                    <div class="menu-item featured">
+                        <div class="item-content">
+                            <div class="featured-badge">Signature</div>
+                            <div class="item-name">Twix Salad</div>
+                            <div class="item-desc">Twix, Ice cream, Fruits, Cream, Cornflakes</div>
+                        </div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">42,000 SY</span></div>
                     </div>
-                    <p class="item-desc">Kit Kat, Ice cream, Fruits, Cream, Cornflakes</p>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Tutti Fruity</span>
-                        <span class="item-price">35,000 SY</span>
+                    <div class="menu-item featured">
+                        <div class="item-content">
+                            <div class="featured-badge">Signature</div>
+                            <div class="item-name">Kit Kat Salad</div>
+                            <div class="item-desc">Kit Kat, Ice cream, Fruits, Cream, Cornflakes</div>
+                        </div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">42,000 SY</span></div>
                     </div>
-                    <p class="item-desc">Banana + Apples + Kiwi + Pineapple + Oranges + Lemon Sauce or Mango Sauce</p>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">La Dolce Strawberry</span>
-                        <span class="item-price">38,000 SY</span>
+                    <div class="menu-item">
+                        <div class="item-content">
+                            <div class="item-name">Tutti Fruity</div>
+                            <div class="item-desc">Banana + Apples + Kiwi + Pineapple + Oranges + Lemon Sauce or Mango Sauce</div>
+                        </div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">35,000 SY</span></div>
                     </div>
-                    <p class="item-desc">Fresh Strawberries + Cream</p>
+                    <div class="menu-item">
+                        <div class="item-content">
+                            <div class="item-name">La Dolce Strawberry</div>
+                            <div class="item-desc">Fresh Strawberries + Cream</div>
+                        </div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">38,000 SY</span></div>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Hot Drinks -->
-        <section class="menu-section" id="hot-drinks">
-            <div class="section-header">
-                <h2 class="section-title">Hot Drinks</h2>
-                <p class="section-subtitle">Warm & comforting</p>
-                <div class="section-divider"></div>
-            </div>
-            <div class="menu-items">
-                <h3 class="subcategory-title">☕ Coffee</h3>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Espresso</span>
-                        <span class="item-price">24,000 SY</span>
+            <!-- HOT DRINKS -->
+            <section class="menu-section" id="hotdrinks">
+                <div class="section-header">
+                    <h2 class="section-title">Hot Drinks</h2>
+                    <div class="section-ornament">
+                        <span class="ornament-line"></span>
+                        <span class="ornament-diamond"></span>
+                        <span class="ornament-line"></span>
                     </div>
                 </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Espresso Longo</span>
-                        <span class="item-price">26,000 SY</span>
+                <div class="menu-items">
+                    <h3 class="subcategory-title"><span class="subcategory-icon">☕</span> Coffee</h3>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Espresso</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">24,000 SY</span></div>
                     </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Double Espresso</span>
-                        <span class="item-price">27,000 SY</span>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Espresso Longo</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">26,000 SY</span></div>
                     </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Decaf Espresso</span>
-                        <span class="item-price">28,500 SY</span>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Double Espresso</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">27,000 SY</span></div>
                     </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Macchiato</span>
-                        <span class="item-price">26,500 SY</span>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Decaf Espresso</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">28,500 SY</span></div>
                     </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Americano</span>
-                        <span class="item-price">26,000 SY</span>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Macchiato</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">26,500 SY</span></div>
                     </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Americano w/ Milk</span>
-                        <span class="item-price">28,500 SY</span>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Americano</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">26,000 SY</span></div>
                     </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">3in1</span>
-                        <span class="item-price">28,000 SY</span>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Americano w/ Milk</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">28,500 SY</span></div>
                     </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">2in1</span>
-                        <span class="item-price">26,000 SY</span>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">3in1</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">28,000 SY</span></div>
                     </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Nescafe Black</span>
-                        <span class="item-price">24,000 SY</span>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">2in1</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">26,000 SY</span></div>
                     </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Cappuccino</span>
-                        <span class="item-price">30,000 SY</span>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Nescafe Black</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">24,000 SY</span></div>
                     </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Cafe Latte</span>
-                        <span class="item-price">30,000 SY</span>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Cappuccino</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">30,000 SY</span></div>
                     </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Turkish Café</span>
-                        <span class="item-price">21,000 SY</span>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Cafe Latte</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">30,000 SY</span></div>
                     </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Mocha Latte</span>
-                        <span class="item-price">32,000 SY</span>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Turkish Café</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">21,000 SY</span></div>
                     </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Caramel Latte</span>
-                        <span class="item-price">32,000 SY</span>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Mocha Latte</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">32,000 SY</span></div>
                     </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Hazelnut Latte</span>
-                        <span class="item-price">32,000 SY</span>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Caramel Latte</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">32,000 SY</span></div>
                     </div>
-                </div>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Hazelnut Latte</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">32,000 SY</span></div>
+                    </div>
 
-                <h3 class="subcategory-title">🍫 Chocolate</h3>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Hot Chocolate</span>
-                        <span class="item-price">32,000 SY</span>
+                    <h3 class="subcategory-title"><span class="subcategory-icon">🍫</span> Chocolate</h3>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Hot Chocolate</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">32,000 SY</span></div>
                     </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Dark Chocolate</span>
-                        <span class="item-price">32,000 SY</span>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Dark Chocolate</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">32,000 SY</span></div>
                     </div>
-                </div>
 
-                <h3 class="subcategory-title">🍵 Matcha</h3>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Matcha Latte</span>
-                        <span class="item-price">42,000 SY</span>
+                    <h3 class="subcategory-title"><span class="subcategory-icon">🍵</span> Matcha</h3>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Matcha Latte</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">42,000 SY</span></div>
                     </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Iced Matcha</span>
-                        <span class="item-price">42,000 SY</span>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Iced Matcha</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">42,000 SY</span></div>
                     </div>
-                </div>
 
-                <h3 class="subcategory-title">🌿 Herbs & Tea</h3>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Cumin with Lemon</span>
-                        <span class="item-price">28,000 SY</span>
+                    <h3 class="subcategory-title"><span class="subcategory-icon">🌿</span> Herbs &amp; Tea</h3>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Cumin with Lemon</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">28,000 SY</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Herbs</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">24,000 SY</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Dolce Red Tea</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">28,000 SY</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Tea (Bag)</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">24,000 SY</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Green Tea</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">24,000 SY</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Chamomile</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">24,000 SY</span></div>
                     </div>
                 </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Herbs</span>
-                        <span class="item-price">24,000 SY</span>
-                    </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Dolce Red Tea</span>
-                        <span class="item-price">28,000 SY</span>
-                    </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Tea (Bag)</span>
-                        <span class="item-price">24,000 SY</span>
-                    </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Green Tea</span>
-                        <span class="item-price">24,000 SY</span>
-                    </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Chamomile</span>
-                        <span class="item-price">24,000 SY</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Cold Drinks -->
-        <section class="menu-section" id="cold-drinks">
-            <div class="section-header">
-                <h2 class="section-title">Cold Drinks</h2>
-                <p class="section-subtitle">Refresh & cool down</p>
-                <div class="section-divider"></div>
-            </div>
-            <div class="menu-items">
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Iced Coffee</span>
-                        <span class="item-price">27,500 SY</span>
+            <!-- COLD DRINKS -->
+            <section class="menu-section" id="colddrinks">
+                <div class="section-header">
+                    <h2 class="section-title">Cold Drinks</h2>
+                    <div class="section-ornament">
+                        <span class="ornament-line"></span>
+                        <span class="ornament-diamond"></span>
+                        <span class="ornament-line"></span>
                     </div>
                 </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Iced Latte</span>
-                        <span class="item-price">29,500 SY</span>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Iced Coffee</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">27,500 SY</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Iced Latte</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">29,500 SY</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Lemon Mint Frappe</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">30,000 SY</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Strawberry Mojito</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">32,000 SY</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Blue Mojito</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">34,000 SY</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Blueberry Mojito</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">34,000 SY</span></div>
                     </div>
                 </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Lemon Mint Frappe</span>
-                        <span class="item-price">30,000 SY</span>
-                    </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Strawberry Mojito</span>
-                        <span class="item-price">32,000 SY</span>
-                    </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Blue Mojito</span>
-                        <span class="item-price">34,000 SY</span>
-                    </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Blueberry Mojito</span>
-                        <span class="item-price">34,000 SY</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Smoothies -->
-        <section class="menu-section" id="smoothies">
-            <div class="section-header">
-                <h2 class="section-title">Smoothies</h2>
-                <p class="section-subtitle">Fresh & blended</p>
-                <div class="section-divider"></div>
-            </div>
-            <div class="menu-items">
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Strawberry Smoothie</span>
-                        <span class="item-price">32,000 SY</span>
+            <!-- SMOOTHIES -->
+            <section class="menu-section" id="smoothies">
+                <div class="section-header">
+                    <h2 class="section-title">Smoothies</h2>
+                    <div class="section-ornament">
+                        <span class="ornament-line"></span>
+                        <span class="ornament-diamond"></span>
+                        <span class="ornament-line"></span>
                     </div>
                 </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Mango Smoothie</span>
-                        <span class="item-price">32,000 SY</span>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Strawberry Smoothie</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">32,000 SY</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Mango Smoothie</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">32,000 SY</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Watermelon Smoothie</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">32,000 SY</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Kiwi Smoothie</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">—</span></div>
                     </div>
                 </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Watermelon Smoothie</span>
-                        <span class="item-price">32,000 SY</span>
-                    </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Kiwi Smoothie</span>
-                        <span class="item-price">—</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Fresh Juice -->
-        <section class="menu-section" id="juice">
-            <div class="section-header">
-                <h2 class="section-title">Fresh Juice</h2>
-                <p class="section-subtitle">Naturally squeezed</p>
-                <div class="section-divider"></div>
-            </div>
-            <div class="menu-items">
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Orange Juice</span>
-                        <span class="item-price">35,000 SY</span>
+            <!-- FRESH JUICE -->
+            <section class="menu-section" id="juice">
+                <div class="section-header">
+                    <h2 class="section-title">Fresh Juice</h2>
+                    <div class="section-ornament">
+                        <span class="ornament-line"></span>
+                        <span class="ornament-diamond"></span>
+                        <span class="ornament-line"></span>
                     </div>
                 </div>
-            </div>
-        </section>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Orange Juice</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">35,000 SY</span></div>
+                    </div>
+                </div>
+            </section>
 
-        <!-- Milkshakes -->
-        <section class="menu-section" id="milkshakes">
-            <div class="section-header">
-                <h2 class="section-title">Milkshakes</h2>
-                <p class="section-subtitle">Creamy & delicious</p>
-                <div class="section-divider"></div>
-            </div>
-            <div class="menu-items">
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Milkshake</span>
-                        <span class="item-price">32,000 SY</span>
+            <!-- MILKSHAKES -->
+            <section class="menu-section" id="milkshakes">
+                <div class="section-header">
+                    <h2 class="section-title">Milkshakes</h2>
+                    <div class="section-ornament">
+                        <span class="ornament-line"></span>
+                        <span class="ornament-diamond"></span>
+                        <span class="ornament-line"></span>
                     </div>
-                    <p class="item-options">Strawberry / Vanilla / Chocolate</p>
                 </div>
-            </div>
-        </section>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="item-content">
+                            <div class="item-name">Milkshake</div>
+                            <div class="item-options">Strawberry / Vanilla / Chocolate</div>
+                        </div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">32,000 SY</span></div>
+                    </div>
+                </div>
+            </section>
 
-        <!-- Cocktails -->
-        <section class="menu-section" id="cocktails">
-            <div class="section-header">
-                <h2 class="section-title">Cocktails</h2>
-                <p class="section-subtitle">Signature blends</p>
-                <div class="section-divider"></div>
-            </div>
-            <div class="menu-items">
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Milk + Banana + Apple + Honey</span>
-                        <span class="item-price">30,000 SY</span>
+            <!-- COCKTAILS -->
+            <section class="menu-section" id="cocktails">
+                <div class="section-header">
+                    <h2 class="section-title">Cocktails</h2>
+                    <div class="section-ornament">
+                        <span class="ornament-line"></span>
+                        <span class="ornament-diamond"></span>
+                        <span class="ornament-line"></span>
                     </div>
                 </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Fruit Cocktail</span>
-                        <span class="item-price">30,000 SY</span>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="item-content">
+                            <div class="item-name">Milk + Banana + Apple + Honey</div>
+                        </div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">30,000 SY</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Fruit Cocktail</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">30,000 SY</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Avocado Cocktail</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">34,000 SY</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-content">
+                            <div class="item-name">Protein Cocktail</div>
+                            <div class="item-desc">Date, Banana, Milk, Apple, Walnut, Oats</div>
+                        </div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">36,000 SY</span></div>
                     </div>
                 </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Avocado Cocktail</span>
-                        <span class="item-price">34,000 SY</span>
-                    </div>
-                </div>
-                <div class="menu-item">
-                    <div class="item-header">
-                        <span class="item-name">Protein Cocktail</span>
-                        <span class="item-price">36,000 SY</span>
-                    </div>
-                    <p class="item-desc">Date, Banana, Milk, Apple, Walnut, Oats</p>
-                </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Water & Soft Drinks -->
-        <section class="menu-section" id="water-drinks">
-            <div class="section-header">
-                <h2 class="section-title">Water & Soft Drinks</h2>
-                <p class="section-subtitle">Stay hydrated</p>
-                <div class="section-divider"></div>
-            </div>
-            <div class="menu-items">
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Small Water</span>
-                        <span class="item-price">10,000 SY</span>
+            <!-- WATER & SOFT DRINKS -->
+            <section class="menu-section" id="water">
+                <div class="section-header">
+                    <h2 class="section-title">Water &amp; Soft Drinks</h2>
+                    <div class="section-ornament">
+                        <span class="ornament-line"></span>
+                        <span class="ornament-diamond"></span>
+                        <span class="ornament-line"></span>
                     </div>
                 </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Sparkling Water</span>
-                        <span class="item-price">15,000 SY</span>
+                <div class="menu-items">
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Small Water</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">10,000 SY</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Sparkling Water</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">15,000 SY</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Diet Pepsi</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">12,000 SY</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Diet 7 Up</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">12,000 SY</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Pepsi</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">12,000 SY</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">7 Up</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">12,000 SY</span></div>
+                    </div>
+                    <div class="menu-item">
+                        <div class="item-content"><div class="item-name">Ice Tea — Peach</div></div>
+                        <span class="item-connector"></span>
+                        <div class="item-price-wrap"><span class="item-price">12,000 SY</span></div>
                     </div>
                 </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Diet Pepsi</span>
-                        <span class="item-price">12,000 SY</span>
-                    </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Diet 7 Up</span>
-                        <span class="item-price">12,000 SY</span>
-                    </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Pepsi</span>
-                        <span class="item-price">12,000 SY</span>
-                    </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">7 Up</span>
-                        <span class="item-price">12,000 SY</span>
-                    </div>
-                </div>
-                <div class="menu-item sub-item">
-                    <div class="item-header">
-                        <span class="item-name">Ice Tea - Peach</span>
-                        <span class="item-price">12,000 SY</span>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
 
+        </div>
     </main>
 
-    <!-- Footer -->
+    <!-- ===== FOOTER ===== -->
     <footer class="footer">
+        <div class="footer-ornament">
+            <span class="ornament-line"></span>
+            <span class="ornament-diamond"></span>
+            <span class="ornament-line"></span>
+        </div>
         <div class="footer-logo">La Dolce</div>
-        <p>All rights reserved &copy; 2026. This website was created by <a href="https://t.me/fatihmouazen" target="_blank" rel="noopener noreferrer">Fatih Mouazen</a></p>
+        <p>All Rights Reserved &copy; 2026</p>
+        <p style="margin-top: 0.4rem;">This website was created by <a href="https://t.me/fatehmoathen" target="_blank" rel="noopener noreferrer">Fateh Moathen</a></p>
     </footer>
 
     <script>
-        // Particles
-        (function() {
-            const container = document.getElementById('particles');
-            const count = 25;
-            for (let i = 0; i < count; i++) {
-                const p = document.createElement('div');
-                p.className = 'particle';
-                p.style.left = Math.random() * 100 + '%';
-                p.style.animationDuration = (Math.random() * 15 + 10) + 's';
-                p.style.animationDelay = (Math.random() * 10) + 's';
-                p.style.width = (Math.random() * 3 + 1) + 'px';
-                p.style.height = p.style.width;
-                container.appendChild(p);
-            }
-        })();
-
-        // Navigation active state & smooth scroll
+        // Navigation smooth scroll & active state
         const navLinks = document.querySelectorAll('.nav-link');
         navLinks.forEach(link => {
             link.addEventListener('click', function(e) {
                 e.preventDefault();
                 const target = document.getElementById(this.dataset.target);
                 if (target) {
-                    const navHeight = document.getElementById('navbar').offsetHeight;
-                    const targetPos = target.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
-                    window.scrollTo({ top: targetPos, behavior: 'smooth' });
+                    const navH = document.getElementById('navbar').offsetHeight;
+                    const pos = target.getBoundingClientRect().top + window.pageYOffset - navH - 15;
+                    window.scrollTo({ top: pos, behavior: 'smooth' });
                 }
             });
         });
 
         // Scroll spy
         const sections = document.querySelectorAll('.menu-section');
-        const observerOptions = {
-            root: null,
-            rootMargin: '-20% 0px -60% 0px',
-            threshold: 0
-        };
-
-        const observer = new IntersectionObserver((entries) => {
+        const spyObserver = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     const id = entry.target.id;
@@ -997,20 +1051,26 @@
                     });
                 }
             });
-        }, observerOptions);
+        }, { rootMargin: '-15% 0px -65% 0px', threshold: 0 });
 
-        sections.forEach(section => observer.observe(section));
+        sections.forEach(s => spyObserver.observe(s));
 
-        // Fade in sections on scroll
-        const fadeObserver = new IntersectionObserver((entries) => {
+        // Fade-in on scroll
+        const fadeObs = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                 }
             });
         }, { threshold: 0.1 });
 
-        sections.forEach(section => fadeObserver.observe(section));
+        sections.forEach(s => {
+            s.style.opacity = '0';
+            s.style.transform = 'translateY(20px)';
+            s.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            fadeObs.observe(s);
+        });
     </script>
 </body>
 </html>
